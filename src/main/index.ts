@@ -93,6 +93,14 @@ if (process.platform === 'linux') {
   app.commandLine.appendSwitch('no-sandbox')
 }
 
+// Prefer the operating system trust store for TLS certificate validation.
+if (app.commandLine.hasSwitch('use-system-ca-certs')) {
+  log.info('Chromium switch --use-system-ca-certs already set')
+} else {
+  app.commandLine.appendSwitch('use-system-ca-certs')
+  log.info('Enabled Chromium switch --use-system-ca-certs (using system CA store)')
+}
+
 // ─── State ──────────────────────────────────────────────
 
 let mainWindow: BrowserWindow | null = null
